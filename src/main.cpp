@@ -394,7 +394,7 @@ int main()
 						if (remaining <= 0) break;
 						int mins = remaining / 60;
 						int secs = remaining % 60;
-						printf("\n\rfound match, rerolling in: %d:%02d   ", mins, secs);
+						printf("\rfound match, rerolling in: %d:%02d   ", mins, secs);
 						std::fflush(stdout);
 						std::this_thread::sleep_for(std::chrono::seconds(1));
 					}

@@ -33,19 +33,29 @@ namespace rbx
 		template<typename T>
 		T get_attribute(std::string_view name_to_search)
 		{
-			uint64_t AttributeList1 = memory->read<uint64_t>(this->address + Offsets::Instance::AttributeContainer);
-			uint64_t AttributeList = memory->read<uint64_t>(AttributeList1 + Offsets::Instance::AttributeList);
+			uint64_t component = memory->read<uint64_t>(this->address + Offsets::Instance::ComponentMap);
+			if (!component) return T{};
 
-			for (int i = 0x0; i < 0x1000; i += Offsets::Instance::AttributeToNext)
-			{
-				std::string Name = memory->read_string(memory->read<uint64_t>(AttributeList + i));
+			uint64_t start = memory->read<uint64_t>(component);
+			uint64_t end = memory->read<uint64_t>(component + 8);
+			if (!start || !end || end <= start) return T{};
 
-				if (Name == name_to_search)
-				{
-					return memory->read<T>(AttributeList + i + Offsets::Instance::AttributeToValue);
+			for (uint64_t index = 0; index < end - start; index += 0x10) {
+				uint64_t entry = memory->read<uint64_t>(start + index);
+				if (!entry) continue;
+
+				uint64_t listing = memory->read<uint64_t>(entry + 0x10);
+				if (!listing) continue;
+
+				for (int step = 0; step < Offsets::Attribute::Size * 32; step += Offsets::Attribute::Size) {
+					uint64_t nameptr = memory->read<uint64_t>(listing + step + Offsets::Attribute::Key);
+					if (!nameptr) break;
+
+					if (memory->read_string(nameptr) == name_to_search) {
+						return memory->read<T>(listing + step + Offsets::Attribute::Value);
+					}
 				}
 			}
-
 			return T{};
 		}
 	};
@@ -83,23 +93,57 @@ std::vector<T> rbx::interface_t::get_children()
 	return children;
 }
 
+//template<>
+//inline std::string rbx::nameable_t::get_attribute<std::string>(std::string_view name_to_search)
+//{
+//	uint64_t AttributeList1 = memory->read<uint64_t>(this->address + Offsets::Instance::AttributeContainer);
+//	uint64_t AttributeList = memory->read<uint64_t>(AttributeList1 + Offsets::Instance::AttributeList);
+//
+//	for (int i = 0x0; i < 0x1000; i += Offsets::Instance::AttributeToNext)
+//	{
+//		std::string Name = memory->read_string(memory->read<uint64_t>(AttributeList + i));
+//
+//		if (Name == name_to_search)
+//		{
+//			return memory->read_string(AttributeList + i + Offsets::Instance::AttributeToValue);
+//		}
+//	}
+//
+//	return "";
+//}
+
 template<>
 inline std::string rbx::nameable_t::get_attribute<std::string>(std::string_view name_to_search)
 {
-	uint64_t AttributeList1 = memory->read<uint64_t>(this->address + Offsets::Instance::AttributeContainer);
-	uint64_t AttributeList = memory->read<uint64_t>(AttributeList1 + Offsets::Instance::AttributeList);
-
-	for (int i = 0x0; i < 0x1000; i += Offsets::Instance::AttributeToNext)
-	{
-		std::string Name = memory->read_string(memory->read<uint64_t>(AttributeList + i));
-
-		if (Name == name_to_search)
-		{
-			return memory->read_string(AttributeList + i + Offsets::Instance::AttributeToValue);
+	uint64_t component = memory->read<uint64_t>(this->address + Offsets::Instance::ComponentMap);
+	if (!component)
+		return "unknown";
+	uint64_t start = memory->read<uint64_t>(component);
+	uint64_t end = memory->read<uint64_t>(component + 8);
+	if (!start || !end || end <= start)
+		return "unknown";
+	for (uint64_t index = 0; index < end - start; index += 0x10) {
+		uint64_t entry = memory->read<uint64_t>(start + index);
+		if (!entry)
+			continue;
+		uint64_t listing = memory->read<uint64_t>(entry += 0x10);
+		if (!listing)
+			continue;
+		for (int step = 0; step < Offsets::Attribute::Size * 32; step += Offsets::Attribute::Size) {
+			uint64_t nameptr = memory->read<uint64_t>(listing + step + Offsets::Attribute::Key);
+			if (!nameptr)
+				break;
+			std::string name = memory->read_string(nameptr);
+			if (name.empty() || name.length() > 128)
+				break;
+			if (name == name_to_search) {
+				uint64_t valueaddr = listing + step + Offsets::Attribute::Value;
+				return memory->read_string(valueaddr);
+			}
 		}
 	}
-
-	return "";
+	return "unknown";
 }
+	
 
 rbx::instance_t resolve(rbx::instance_t root, const std::vector<std::string>& path);
