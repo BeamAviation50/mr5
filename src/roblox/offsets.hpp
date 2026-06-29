@@ -13,7 +13,6 @@
 /*  https://offsets.imtheo.lol/discord
 /* =============================================================
 */
-
 #include <cstdint>
 #include <string>
 namespace Offsets {
