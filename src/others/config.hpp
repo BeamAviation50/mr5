@@ -84,7 +84,7 @@ public:
 
             if (shared) {
                 roleid = "1464539393858474056";
-                webhook = "https://discord.com/api/webhooks/1464537100232822878/OjADeSSyeRbarmu4ZHb473UYmAV_pwtGxVT8MDnNpBqyI8JuzDKvxqfdzmuynGE8_aDr";
+                webhook = "https://discord.com/api/webhooks/1523675040455987240/0H_MIFMGBqfyHwy2M4JqWmcXZKqvfH67izmnPIv86nbnqR2RJaBXEc0C_I-F--jxjjkX";
             }
             else {
                 webhook = j.value("webhook", "");
