@@ -4,10 +4,10 @@
 /*                  https://offsets.imtheo.lol
 /* -------------------------------------------------------------
 /*  Dumped With     : RbxDumperV2
-/*  Roblox Version  : version-5cf2272675e145f5
+/*  Roblox Version  : version-ddf02245bdbb428c
 /*  Dumper Version  : 2.1.7
-/*  Dumped At       : 21:32 30/06/2026 (GMT)
-/*  Total Offsets   : 392
+/*  Dumped At       : 18:06 15/07/2026 (GMT)
+/*  Total Offsets   : 393
 /* -------------------------------------------------------------
 /*  Join the discord!
 /*  https://offsets.imtheo.lol/discord
@@ -17,24 +17,24 @@
 #include <cstdint>
 #include <string>
 namespace Offsets {
-    inline std::string ClientVersion = "5cf2272675e145f5";
+    inline std::string ClientVersion = "ddf02245bdbb428c";
 
     namespace AirProperties {
-        inline constexpr uintptr_t AirDensity = 0x18;
-        inline constexpr uintptr_t GlobalWind = 0x3c;
+        inline constexpr uintptr_t AirDensity = 0x0;
+        inline constexpr uintptr_t GlobalWind = 0x0;
     }
 
     namespace AnimationTrack {
         inline constexpr uintptr_t Animation = 0xb8;
-        inline constexpr uintptr_t Animator = 0x100;
-        inline constexpr uintptr_t IsPlaying = 0xa40;
-        inline constexpr uintptr_t Looped = 0xdd;
-        inline constexpr uintptr_t Speed = 0xcc;
-        inline constexpr uintptr_t TimePosition = 0xd0;
+        inline constexpr uintptr_t Animator = 0x108;
+        inline constexpr uintptr_t IsPlaying = 0xa90;
+        inline constexpr uintptr_t Looped = 0xe5;
+        inline constexpr uintptr_t Speed = 0xd4;
+        inline constexpr uintptr_t TimePosition = 0xd8;
     }
 
     namespace Animator {
-        inline constexpr uintptr_t ActiveAnimations = 0x9d0;
+        inline constexpr uintptr_t ActiveAnimations = 0xa20;
     }
 
     namespace Atmosphere {
@@ -148,13 +148,13 @@ namespace Offsets {
     namespace DataModel {
         inline constexpr uintptr_t CreatorId = 0x180;
         inline constexpr uintptr_t GameId = 0x188;
-        inline constexpr uintptr_t GameLoaded = 0x658;
+        inline constexpr uintptr_t GameLoaded = 0x578;
         inline constexpr uintptr_t JobId = 0x120;
         inline constexpr uintptr_t PlaceId = 0x190;
         inline constexpr uintptr_t PlaceVersion = 0x1ac;
-        inline constexpr uintptr_t PrimitiveCount = 0x488;
+        inline constexpr uintptr_t PrimitiveCount = 0x3c0;
         inline constexpr uintptr_t ScriptContext = 0x440;
-        inline constexpr uintptr_t ServerIP = 0x640;
+        inline constexpr uintptr_t ServerIP = 0x560;
         inline constexpr uintptr_t ToRenderView1 = 0x1c8;
         inline constexpr uintptr_t ToRenderView2 = 0x8;
         inline constexpr uintptr_t ToRenderView3 = 0x28;
@@ -184,7 +184,7 @@ namespace Offsets {
     }
 
     namespace FakeDataModel {
-        inline constexpr uintptr_t Pointer = 0x7c3d2e8;
+        inline constexpr uintptr_t Pointer = 0x7d28508;
         inline constexpr uintptr_t RealDataModel = 0x1d0;
     }
 
@@ -362,7 +362,7 @@ namespace Offsets {
         inline constexpr uintptr_t InputObject = 0xf0;
         inline constexpr uintptr_t InputObject2 = 0x100;
         inline constexpr uintptr_t MousePosition = 0xd4;
-        inline constexpr uintptr_t SensitivityPointer = 0x7dfd318;
+        inline constexpr uintptr_t SensitivityPointer = 0x7ee9b58;
     }
 
     namespace ParticleEmitter {
@@ -384,20 +384,20 @@ namespace Offsets {
     }
 
     namespace Player {
-        inline constexpr uintptr_t AccountAge = 0x34c;
-        inline constexpr uintptr_t CameraMode = 0x360;
+        inline constexpr uintptr_t AccountAge = 0x35c;
+        inline constexpr uintptr_t CameraMode = 0x370;
         inline constexpr uintptr_t DisplayName = 0x138;
-        inline constexpr uintptr_t HealthDisplayDistance = 0x380;
+        inline constexpr uintptr_t HealthDisplayDistance = 0x390;
         inline constexpr uintptr_t LocalPlayer = 0x130;
         inline constexpr uintptr_t LocaleId = 0x118;
-        inline constexpr uintptr_t MaxZoomDistance = 0x358;
-        inline constexpr uintptr_t MinZoomDistance = 0x35c;
+        inline constexpr uintptr_t MaxZoomDistance = 0x1bd;
+        inline constexpr uintptr_t MinZoomDistance = 0x36c;
         inline constexpr uintptr_t ModelInstance = 0x298;
-        inline constexpr uintptr_t Mouse = 0x11c8;
-        inline constexpr uintptr_t NameDisplayDistance = 0x390;
-        inline constexpr uintptr_t Team = 0x2c8;
-        inline constexpr uintptr_t TeamColor = 0x39c;
-        inline constexpr uintptr_t UserId = 0x2f0;
+        inline constexpr uintptr_t Mouse = 0x11d8;
+        inline constexpr uintptr_t NameDisplayDistance = 0x3a0;
+        inline constexpr uintptr_t Team = 0x2d8;
+        inline constexpr uintptr_t TeamColor = 0x3ac;
+        inline constexpr uintptr_t UserId = 0x300;
     }
 
     namespace PlayerConfigurer {
@@ -453,8 +453,8 @@ namespace Offsets {
     }
 
     namespace RunService {
-        inline constexpr uintptr_t HeartbeatFPS = 0xbc;
-        inline constexpr uintptr_t HeartbeatTask = 0x1b0;
+        inline constexpr uintptr_t HeartbeatFPS = 0xf4;
+        inline constexpr uintptr_t HeartbeatTask = 0x3b8;
     }
 
     namespace Script {
@@ -487,6 +487,7 @@ namespace Offsets {
     }
 
     namespace Sound {
+        inline constexpr uintptr_t IsPlaying = 0x140;
         inline constexpr uintptr_t Looped = 0x13d;
         inline constexpr uintptr_t PlaybackSpeed = 0x11c;
         inline constexpr uintptr_t RollOffMaxDistance = 0x120;
@@ -536,7 +537,7 @@ namespace Offsets {
         inline constexpr uintptr_t JobName = 0x18;
         inline constexpr uintptr_t JobStart = 0xc8;
         inline constexpr uintptr_t MaxFPS = 0xb0;
-        inline constexpr uintptr_t Pointer = 0x81cc868;
+        inline constexpr uintptr_t Pointer = 0x82b9f48;
     }
 
     namespace Team {
@@ -569,7 +570,7 @@ namespace Offsets {
     }
 
     namespace UnionOperation {
-        inline constexpr uintptr_t AssetId = 0x288;
+        inline constexpr uintptr_t AssetId = 0x290;
     }
 
     namespace UserInputService {
@@ -587,7 +588,7 @@ namespace Offsets {
     namespace VisualEngine {
         inline constexpr uintptr_t Dimensions = 0xab0;
         inline constexpr uintptr_t FakeDataModel = 0xa90;
-        inline constexpr uintptr_t Pointer = 0x835a548;
+        inline constexpr uintptr_t Pointer = 0x8447c68;
         inline constexpr uintptr_t RenderView = 0xbb8;
         inline constexpr uintptr_t ViewMatrix = 0x150;
     }
@@ -608,18 +609,18 @@ namespace Offsets {
     }
 
     namespace Workspace {
-        inline constexpr uintptr_t CurrentCamera = 0x4a0;
-        inline constexpr uintptr_t DistributedGameTime = 0x4c0;
-        inline constexpr uintptr_t ReadOnlyGravity = 0x9b0;
-        inline constexpr uintptr_t World = 0x3f8;
+        inline constexpr uintptr_t CurrentCamera = 0x488;
+        inline constexpr uintptr_t DistributedGameTime = 0x4a8;
+        inline constexpr uintptr_t ReadOnlyGravity = 0x998;
+        inline constexpr uintptr_t World = 0x368;
     }
 
     namespace World {
-        inline constexpr uintptr_t AirProperties = 0x218;
-        inline constexpr uintptr_t FallenPartsDestroyHeight = 0x208;
-        inline constexpr uintptr_t Gravity = 0x210;
-        inline constexpr uintptr_t Primitives = 0x288;
-        inline constexpr uintptr_t worldStepsPerSec = 0x680;
+        inline constexpr uintptr_t AirProperties = 0x0;
+        inline constexpr uintptr_t FallenPartsDestroyHeight = 0x0;
+        inline constexpr uintptr_t Gravity = 0x1a4;
+        inline constexpr uintptr_t Primitives = 0x0;
+        inline constexpr uintptr_t worldStepsPerSec = 0xc16;
     }
 
 }

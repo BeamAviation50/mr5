@@ -1,22 +1,7 @@
 /*
 	MR5
 	Blah blah blah blah blah blah blah
-	hafdkj ahsdfiua shdofiu ahsdiuof hasdf' asd
-	f hasdf8hasd fho ausduof asd
-	f ashud
-	of ua
-	sodfu 
-	oasdh
-	f asdfhuas dhfu
-	asdhufa s
-	udfu ashuodf 
-	aosdfouhasdhuofasdohu fahsoud fhouas
-	d fhou
-	asdho ufasdhou fhauosd fhouasdh oufsadhou fahousd
-	f ausdhof asd
-	oufh 
-	aodsuigha8osdhgo8asd hgohg
-	oasdg
+
 
 	Copyleft© bostonlobster3141592653589793238
 	- Steal this all you want! I honestly don't care.
