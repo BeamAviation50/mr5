@@ -2,94 +2,155 @@
 #include "../mem/memory.h"
 #include "offsets.hpp"
 
+
 std::string rbx::nameable_t::get_string_value()
 {
-	std::string result;
+    if (!address)
+        return "unknown";
 
-	for (int i = 0; i < 8; i++)
-	{
-		char c = memory->read<char>(this->address + Offsets::Misc::Value + i);
+    std::string result;
 
-		if (c == '\0') break;
-		result += c;
-	}
+    for (int i = 0; i < 8; ++i)
+    {
+        const char c =
+            memory->read<char>(
+                address + Offsets::Misc::Value + i
+            );
 
-	return result;
+        if (c == '\0')
+            break;
+
+        result += c;
+    }
+
+    return result;
 }
+
 
 std::string rbx::nameable_t::get_name()
 {
-	std::uint64_t nameptr = memory->read<uint64_t>(this->address + Offsets::Instance::Name);
-	if (nameptr)
-	{
-		return memory->read_string(nameptr);
-	}
-	return "unknown";
+    if (!address)
+        return "unknown";
+
+    const std::uint64_t name_ptr =
+        memory->read<std::uint64_t>(
+            address + Offsets::Instance::Name
+        );
+
+    if (!name_ptr)
+        return "unknown";
+
+    return memory->read_string(name_ptr);
 }
+
 
 std::string rbx::nameable_t::get_class_name()
 {
-	std::uint64_t cd = memory->read<uint64_t>(this->address + Offsets::Instance::ClassDescriptor);
-	std::uint64_t cn = memory->read<uint64_t>(cd + Offsets::Instance::ClassName);
-	if (cn)
-	{
-		return memory->read_string(cn);
-	}
-	return "unknown";
+    if (!address)
+        return "unknown";
+
+    const std::uint64_t class_descriptor =
+        memory->read<std::uint64_t>(
+            address + Offsets::Instance::ClassDescriptor
+        );
+
+    if (!class_descriptor)
+        return "unknown";
+
+    const std::uint64_t class_name =
+        memory->read<std::uint64_t>(
+            class_descriptor + Offsets::Instance::ClassName
+        );
+
+    if (!class_name)
+        return "unknown";
+
+    return memory->read_string(class_name);
 }
+
 
 std::vector<rbx::instance_t> rbx::interface_t::get_children()
 {
-	rbx::instance_t* base = static_cast<rbx::instance_t*>(this);
-	std::uint64_t start{ memory->read<uint64_t>(base->address + Offsets::Instance::ChildrenStart) };
-	std::uint64_t end{ memory->read<uint64_t>(start + Offsets::Instance::ChildrenEnd) } ;
+    std::vector<rbx::instance_t> children;
 
-	std::vector<rbx::instance_t> children;
+    if (!address)
+        return children;
 
-	for (std::uint64_t instance = memory->read<std::uint64_t>(start); instance < end; instance += sizeof(std::shared_ptr<void*>))
-	{
-		children.emplace_back(memory->read<uint64_t>(instance));
-	}
-	return children;
+    const std::uint64_t children_start =
+        memory->read<std::uint64_t>(
+            address + Offsets::Instance::ChildrenStart
+        );
+
+    if (!children_start)
+        return children;
+
+    const std::uint64_t children_end =
+        memory->read<std::uint64_t>(
+            children_start + Offsets::Instance::ChildrenEnd
+        );
+
+    if (!children_end || children_end <= children_start)
+        return children;
+
+    for (
+        std::uint64_t current = memory->read<std::uint64_t>(children_start);
+        current < children_end;
+        current += sizeof(std::shared_ptr<void*>)
+    )
+    {
+        const std::uint64_t child =
+            memory->read<std::uint64_t>(current);
+
+        if (child)
+            children.emplace_back(child);
+    }
+
+    return children;
 }
 
-rbx::instance_t rbx::interface_t::find_first_child(std::string_view str)
+
+rbx::instance_t rbx::interface_t::find_first_child(
+    std::string_view name)
 {
-	std::vector<rbx::instance_t> children = this->get_children();
+    for (rbx::instance_t& child : get_children())
+    {
+        if (child.get_name() == name)
+            return child;
+    }
 
-	for (rbx::instance_t& child : children)
-	{
-		if (child.get_name() == str)
-		{
-			return child;
-		}
-	}
-
-	return {};
+    return {};
 }
 
-rbx::instance_t rbx::interface_t::find_first_child_of_class(std::string_view str)
+
+rbx::instance_t rbx::interface_t::find_first_child_of_class(
+    std::string_view class_name)
 {
-	std::vector<rbx::instance_t> children = this->get_children();
+    for (rbx::instance_t& child : get_children())
+    {
+        if (child.get_class_name() == class_name)
+            return child;
+    }
 
-	for (rbx::instance_t& child : children)
-	{
-		if (child.get_class_name() == str)
-		{
-			return child;
-		}
-	}
-
-	return {};
+    return {};
 }
 
-rbx::instance_t resolve(rbx::instance_t root, const std::vector<std::string>& path) {
-	rbx::instance_t current = root;
-	for (const auto& name : path) {
-		current = current.find_first_child(name);
-		if (current.address == 0) {
-			break;
-		}
-	}
-	return current;
+
+rbx::instance_t resolve(
+    rbx::instance_t root,
+    const std::vector<std::string>& path)
+{
+    rbx::instance_t current = root;
+
+    for (const std::string& name : path)
+    {
+        if (!current.address)
+            return {};
+
+        current = current.find_first_child(name);
+
+        if (!current.address)
+            return {};
+    }
+
+    return current;
 }
