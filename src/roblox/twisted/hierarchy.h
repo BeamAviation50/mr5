@@ -33,16 +33,17 @@ namespace Twisted {
             {"composite",  {{"ReplicatedStorage", "kinematics", "composite"}, SourceType::Value}},
             {"risk_d1",    {{"ReplicatedStorage", "kinematics", "risk"}, SourceType::Value}},
 
-            {"speed",      {{"ReplicatedStorage", "kinematics", "motion"}, SourceType::AttributeDouble, "speed"}},
-            {"direction",  {{"ReplicatedStorage", "kinematics", "motion"}, SourceType::AttributeString, "direction"}},
-            {"risk_d2",    {{"ReplicatedStorage", "kinematics", "risk"}, SourceType::AttributeString, "Day_2"}},
-            {"risk_d3",    {{"ReplicatedStorage", "kinematics", "risk"}, SourceType::AttributeString, "Day_3"}}
+            // FIXED: Updated attribute string keys to match the exact Roblox casing and spacing
+            {"speed",      {{"ReplicatedStorage", "kinematics", "motion"}, SourceType::AttributeDouble, "Speed"}},
+            {"direction",  {{"ReplicatedStorage", "kinematics", "motion"}, SourceType::AttributeString, "Direction"}},
+            {"risk_d2",    {{"ReplicatedStorage", "kinematics", "risk"}, SourceType::AttributeString, "Day 2"}},
+            {"risk_d3",    {{"ReplicatedStorage", "kinematics", "risk"}, SourceType::AttributeString, "Day 3"}}
         };
 
         inline void read(results& data) {
             auto get_dbl = [&](const std::string& key) { return (data.count(key)) ? std::get<double>(data[key]) : 0.0; };
-            auto get_str = [&](const std::string& key) { return (data.count(key)) ? std::get<std::string>(data[key]) : "N/A"; };
-;
+            auto get_str = [&](const std::string& key) { return (data.count(key)) ? std::get<std::string>(data[key]) : "Unknown"; };
+
             std::cout << "D1: " << get_str("risk_d1") << " D2: " << get_str("risk_d2") << " D3: " << get_str("risk_d3") << std::endl << std::endl;
             std::cout << "STP/VTP: " << get_dbl("stp") << "/" << get_dbl("vtp") << std::endl;
             std::cout << "CAPE: " << get_dbl("cape") << " J/KG" << std::endl;
@@ -78,10 +79,12 @@ namespace Twisted {
             {"mb_rh",      {{"ReplicatedStorage", "kinematics", "mb_rh"}, SourceType::Value}},
             {"composite",  {{"ReplicatedStorage", "kinematics", "composite"}, SourceType::Value}},
             {"risk_d1",    {{"ReplicatedStorage", "kinematics", "risk"}, SourceType::Value}},
-            {"speed",      {{"ReplicatedStorage", "kinematics", "motion"}, SourceType::AttributeDouble, "speed"}},
-            {"direction",  {{"ReplicatedStorage", "kinematics", "motion"}, SourceType::AttributeString, "direction"}},
-            {"risk_d2",    {{"ReplicatedStorage", "kinematics", "risk"}, SourceType::AttributeString, "Day_2"}},
-            {"risk_d3",    {{"ReplicatedStorage", "kinematics", "risk"}, SourceType::AttributeString, "Day_3"}}
+            
+            // FIXED: Applied the same exact attribute name updates to Legacy20
+            {"speed",      {{"ReplicatedStorage", "kinematics", "motion"}, SourceType::AttributeDouble, "Speed"}},
+            {"direction",  {{"ReplicatedStorage", "kinematics", "motion"}, SourceType::AttributeString, "Direction"}},
+            {"risk_d2",    {{"ReplicatedStorage", "kinematics", "risk"}, SourceType::AttributeString, "Day 2"}},
+            {"risk_d3",    {{"ReplicatedStorage", "kinematics", "risk"}, SourceType::AttributeString, "Day 3"}}
         };
 
         inline void read(results& data) {
@@ -112,7 +115,7 @@ namespace Twisted {
 
         inline void read(results& data) {
             auto get_dbl = [&](const std::string& key) { return (data.count(key)) ? std::get<double>(data[key]) : 0.0; };
-            auto get_str = [&](const std::string& key) { return (data.count(key)) ? std::get<std::string>(data[key]) : "N/A"; };
+            auto get_str = [&](const std::string& key) { return (data.count(key)) ? std::get<std::string>(data[key]) : "Unknown"; };
 
             std::cout << "DAY 1: " << get_str("risk_d1") << ", DAY 2: " << get_str("risk_d2") << ", DAY 3: " << get_str("risk_d3") << std::endl << std::endl;
 
@@ -144,7 +147,7 @@ namespace Twisted {
 
         inline void read(results& data) {
             auto get_dbl = [&](const std::string& key) { return (data.count(key)) ? std::get<double>(data[key]) : 0.0; };
-            auto get_str = [&](const std::string& key) { return (data.count(key)) ? std::get<std::string>(data[key]) : "N/A"; };
+            auto get_str = [&](const std::string& key) { return (data.count(key)) ? std::get<std::string>(data[key]) : "Unknown"; };
 
             std::cout << "CURRENT RISK: " << get_str("risk") << std::endl << std::endl;
             std::cout << "TEMPERATURES: " << get_dbl("ftemp") << " F" << std::endl;
